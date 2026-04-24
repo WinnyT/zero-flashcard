@@ -1,6 +1,8 @@
 import { useEffect } from "react";
 import { supabase } from "./supabaseClient";
 import { useState } from "react";
+import Flashcard from "./Flashcard";
+
 
 function App() {
   const [words, setWords] = useState<any[]>([]);
@@ -26,13 +28,14 @@ function App() {
       
       {words.length === 0 && <p>No words found or still loading...</p>}
 
-      <ul>
-        {words.map((word, index) => (
-          <li key={index} style={{ marginBottom: '10px' }}>
-            <strong>{word.simplified}</strong> ({word.pinyin}) - {word.definition}
-          </li>
+        {words.map((word) => (
+          <Flashcard
+            key={word.id}
+            simplified={word.simplified}
+            pinyin={word.pinyin}
+            definition={word.definition}  
+          />
         ))}
-      </ul>
     </div>
   );
 }
